@@ -5,14 +5,17 @@
   "type": "module",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "node src/index"
+    "dev": "node src/index",
+    "start": "node src/index"
   },
   "author": "kartik sharma",
   "license": "ISC",
   "description": "",
   "dependencies": {
     "@prisma/client": "^6.13.0",
+    "bcrypt": "^6.0.0",
     "db": "*",
+    "dotenv": "^17.2.1",
     "express": "^5.1.0",
     "tsx": "^4.20.3"
   },
