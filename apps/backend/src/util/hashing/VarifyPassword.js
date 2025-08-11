@@ -1,8 +1,8 @@
 import bcrypt from 'bcrypt';
 
-const VerifyPassword = (plainPassword, hashedPassword) => {
+export const VerifyPassword = async (plainPassword, hashedPassword) => {
     try {
-        const result = bcrypt.compare(plainPassword, hashedPassword);
+        const result = await bcrypt.compare(plainPassword, hashedPassword);
         return result
     }
     catch (error) {

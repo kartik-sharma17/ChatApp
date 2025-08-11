@@ -1,5 +1,5 @@
 import express from 'express';
-import { Signup } from '../service/index.js';
+import { Login, Signup } from '../service/index.js';
 
 export const Route = express.Router();
 
@@ -8,3 +8,4 @@ Route.get('/', (req, res) => {
 })
 
 Route.post('/auth/signup', Signup)
+Route.post('/auth/login', Login)
