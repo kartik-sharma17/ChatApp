@@ -12,10 +12,11 @@ datasource db {
 }
 
 model User {
-  id        Int    @id @default(autoincrement())
+  id        String @id @default(uuid())
   email     String @unique
   firstName String
   lastName  String
-  number    Int @unique 
-  password String
+  number    BigInt  @unique
+  password  String
+  requestList Json @default("[]")
 }
