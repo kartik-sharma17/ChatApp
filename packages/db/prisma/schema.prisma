@@ -19,4 +19,5 @@ model User {
   number    BigInt  @unique
   password  String
   requestList Json @default("[]")
+  friendList Json @default("[]")
 }

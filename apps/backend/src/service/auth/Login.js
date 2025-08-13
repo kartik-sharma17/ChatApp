@@ -13,11 +13,11 @@ export const Login = async (req, res) => {
             return ResponsePlate(res, { success: false, message: "User Not Exist Please Check Your Email", status: 400 })
         }
 
-        const checkPassword = await VerifyPassword(password, user.password);
+        const checkPassword = await VerifyPassword(password, user?.password);
 
         if (checkPassword) {
-            const token = GenerateToken({ email });
-            return ResponsePlate(res, { data: { token: token }, message: "Login Successfully", status: 200 });
+            const token = GenerateToken({ email:email,userId:user?.id });
+            return ResponsePlate(res, { data: { token: token, userId:user?.id }, message: "Login Successfully", status: 200 });
         }
 
         return ResponsePlate(res, { success: false, message: "Incorrect Password", status: 400 });
