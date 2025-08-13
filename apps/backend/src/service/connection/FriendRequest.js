@@ -8,7 +8,7 @@ export const FriendRequest = async (req, res) => {
         const userDetails = req?.userDetails;
 
         const user = await prisma.user.findUnique({
-            where: { id: bodyData?.requestTo }
+            where: { userId: bodyData?.requestTo }
         })
 
         if (!user) {
@@ -44,7 +44,7 @@ export const FriendRequest = async (req, res) => {
         const updatedRequestlist = [...existingRequest, generateRequest];
 
         await prisma.user.update({
-            where: { id: bodyData?.requestTo },
+            where: { userId: bodyData?.requestTo },
             data: {
                 requestList: updatedRequestlist
             }

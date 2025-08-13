@@ -1,5 +1,5 @@
 import express from 'express';
-import { Login, Signup,FriendRequest } from '../service/index.js';
+import { Login, Signup, FriendRequest, RequestResponse } from '../service/index.js';
 import { VerifyToken } from '../middleware/index.js';
 
 export const Route = express.Router();
@@ -11,3 +11,4 @@ Route.get('/', (req, res) => {
 Route.post('/auth/signup', Signup)
 Route.post('/auth/login', Login)
 Route.post('/friend-request', VerifyToken, FriendRequest)
+Route.post('/friend-request/respond', VerifyToken, RequestResponse)
