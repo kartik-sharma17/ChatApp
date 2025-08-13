@@ -14,3 +14,5 @@ Route.post('/friend-request', VerifyToken, FriendRequest)
 Route.post('/friend-request/respond', VerifyToken, RequestResponse)
 Route.get('/friends', VerifyToken, GetFriend)
 Route.get('/request', VerifyToken, GetRequest)
+
+// add upload profile pic from your side.
