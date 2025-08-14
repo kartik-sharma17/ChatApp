@@ -12,7 +12,6 @@ export const serverSocket = (server) => {
     })
 
     io.on("connection", (socket) => {
-
         console.log("User connected",socket.id);
 
         socket.on("register", async (userId) => {
