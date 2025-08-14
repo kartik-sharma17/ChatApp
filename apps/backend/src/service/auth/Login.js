@@ -16,8 +16,8 @@ export const Login = async (req, res) => {
         const checkPassword = await VerifyPassword(password, user?.password);
 
         if (checkPassword) {
-            const token = GenerateToken({ email: email, userId: user?.id, userName: `${user?.firstName} ${user?.lastName}` });
-            return ResponsePlate(res, { data: { token: token, userId: user?.id }, message: "Login Successfully", status: 200 });
+            const token = GenerateToken({ email: email, userId: user?.userId, userName: `${user?.firstName} ${user?.lastName}` });
+            return ResponsePlate(res, { data: { token: token, userId: user?.userId }, message: "Login Successfully", status: 200 });
         }
 
         return ResponsePlate(res, { success: false, message: "Incorrect Password", status: 400 });

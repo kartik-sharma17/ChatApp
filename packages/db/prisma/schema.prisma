@@ -12,12 +12,12 @@ datasource db {
 }
 
 model User {
-  id        String @id @default(uuid())
-  email     String @unique
-  firstName String
-  lastName  String
-  number    BigInt  @unique
-  password  String
-  requestList Json @default("[]")
-  friendList Json @default("[]")
+  userId      String @id @default(uuid())
+  email       String @unique
+  firstName   String
+  lastName    String
+  number      BigInt @unique
+  password    String
+  requestList Json   @default("[]")
+  friendList  Json   @default("[]")
 }
