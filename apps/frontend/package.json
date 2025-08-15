@@ -11,6 +11,7 @@
     "check-types": "tsc --noEmit"
   },
   "dependencies": {
+    "@reduxjs/toolkit": "^2.8.2",
     "@repo/ui": "*",
     "@tailwindcss/postcss": "^4.1.12",
     "class-variance-authority": "^0.7.1",
