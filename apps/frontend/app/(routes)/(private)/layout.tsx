@@ -14,6 +14,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body>
+        <>this is a private layout</>
         {children}
       </body>
     </html>
