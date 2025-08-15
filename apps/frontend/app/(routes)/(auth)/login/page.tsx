@@ -1,10 +1,8 @@
-import React from 'react'
-import Link from 'next/link'
+import { LoginComponent } from "@/app/@components"
 
 const Login = () => {
   return (
-    <div>This is a login page <Link href={"/signup"}>press</Link></div>
-
+    <LoginComponent />
   )
 }
 
