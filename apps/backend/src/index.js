@@ -1,10 +1,14 @@
 import express from 'express'
 import dotenv from 'dotenv'
 import { Route } from './controller/index.js';
+import cors from "cors";
+
 
 const app = express();
 
 dotenv.config();
+
+app.use(cors());
 
 app.use(express.json());
 

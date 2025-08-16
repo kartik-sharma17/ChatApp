@@ -2,11 +2,21 @@
   "name": "ws",
   "version": "1.0.0",
   "main": "index.js",
+  "type": "module",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "node src/index"
+    "dev": "node src/index",
+    "start": "node src/index"
   },
   "author": "kartik sharma",
   "license": "ISC",
-  "description": ""
+  "description": "",
+  "dependencies": {
+    "db": "*",
+    "dotenv": "^17.2.1",
+    "express": "^5.1.0",
+    "i": "^0.3.7",
+    "npm": "^11.5.2",
+    "socket.io": "^4.8.1"
+  }
 }
