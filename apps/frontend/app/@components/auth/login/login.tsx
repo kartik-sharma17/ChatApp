@@ -23,13 +23,12 @@ export const LoginComponent = () => {
         onSubmit: async (values) => {
             try {
                 const res = await login(values).unwrap();
-                console.log(res)
                 toast.success(res?.message);
                 dispatch(setUser({ userData: res?.data, token: res?.data?.token }))
                 navigate.push('/')
             }
             catch (error) {
-                toast.error(error?.data?.message);
+                toast.error(error?.data?.message ? error?.data?.message : "Something Went Wrong Please Try Again");
             }
         },
     })

@@ -9,8 +9,16 @@ export const authApislice = rootApislice.injectEndpoints({
                 body: data
             }),
             invalidatesTags: ['Auth']
+        }),
+        signup: builder.mutation({
+            query: (data) => ({
+                url: `/auth/signup`,
+                method: "POST",
+                body: data
+            }),
+            invalidatesTags: ['Auth']
         })
     }),
 });
 
-export const { useLoginMutation } = authApislice;
+export const { useLoginMutation, useSignupMutation } = authApislice;

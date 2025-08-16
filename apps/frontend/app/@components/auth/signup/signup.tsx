@@ -5,31 +5,28 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faGoogle, faFacebook } from '@fortawesome/free-brands-svg-icons'
 import { useFormik } from 'formik';
 import { initialValues, validate } from "./configFormik";
-import { useLoginMutation } from "@/app/@redux/services";
+import { useSignupMutation } from "@/app/@redux/services";
 import { toast } from 'sonner'
 import { useRouter } from "next/navigation";
-import { useAppDispatch } from "@/app/@redux/hooks/hooks";
-import { setUser } from "@/app/@redux/slice/userData";
 
 export const SignupComponent = () => {
 
-    const [login, { isLoading }] = useLoginMutation();
+    const [signup, { isLoading }] = useSignupMutation();
     const navigate = useRouter()
-    const dispatch = useAppDispatch()
 
     const formik = useFormik({
         initialValues,
         validationSchema: validate,
         onSubmit: async (values) => {
             try {
-                const res = await login(values).unwrap();
-                console.log(res)
+                const res = await signup(values).unwrap();
                 toast.success(res?.message);
-                dispatch(setUser({ userData: res?.data, token: res?.data?.token }))
-                navigate.push('/')
+                setTimeout(() => {
+                    navigate.push('/login')
+                }, 3000)
             }
             catch (error) {
-                toast.error(error?.data?.message);
+                toast.error(error?.data?.message ? error?.data?.message : "Something Went Wrong Please Try Again");
             }
         },
     })
@@ -43,15 +40,21 @@ export const SignupComponent = () => {
             }}>
                 <div className="p-4 md:py-10 lg:p-10 px-5 lg:px-12 col-span-12 md:col-span-6 bg-white text-black ">
                     <form className="flex flex-col h-full" onSubmit={formik.handleSubmit}>
-                        <h2 className="text-2xl text-center my-2 lg:mt-10 font-medium">Log In</h2>
+                        <h2 className="text-2xl text-center my-2 lg:mt-10 font-medium">Sign Up</h2>
 
-                        <p className="text-xs text-gray-400 text-center">Welcome back! Please enter ypur details</p>
+                        <p className="text-xs text-gray-400 text-center">Welcome To Chat App</p>
+
+                        <CustomInput formik={formik} name={"firstName"} mandatory={true} label={"First Name"} type="text" placeholder="First Name" />
+
+                        <CustomInput formik={formik} name={"lastName"} mandatory={true} label={"Last Name"} type="text" placeholder="Last Name" />
 
                         <CustomInput formik={formik} name={"email"} mandatory={true} label={"Email"} type="email" placeholder="Email" />
-                        <CustomInput formik={formik} name={"password"} mandatory={true} label={"Password"} type="password" placeholder="Password" />
-                        <Link href={"#"} className="text-black ms-1 text-xs">Forget Password ?</Link>
 
-                        {isLoading ? <CustomSkeleton className="w-full h-8 mt-4 bg-black" /> : <button type="submit" className="mt-4 text-white bg-black px-5 py-1 rounded-sm w-full cursor-pointer">Login</button>}
+                        <CustomInput formik={formik} name={"number"} mandatory={true} label={"Mobile Number"} type="text" placeholder="Mobile Number" />
+
+                        <CustomInput formik={formik} name={"password"} mandatory={true} label={"Create Password"} type="password" placeholder="Create Password" />
+
+                        {isLoading ? <CustomSkeleton className="w-full h-8 mt-4 bg-black" /> : <button type="submit" className="mt-4 text-white bg-black px-5 py-1 rounded-sm w-full cursor-pointer">Sign up</button>}
 
                         <div className="flex items-center gap-2 w-full mt-7">
                             <hr className="flex-1 border-gray-400" />
@@ -64,7 +67,7 @@ export const SignupComponent = () => {
                             <div className="col-span-12 lg:col-span-6 text-sm flex gap-2 items-center justify-center border-gray-200 rounded-sm border-1 p-2 cursor-pointer"><FontAwesomeIcon icon={faFacebook} className="text-blue-600 w-5 h-5" />Facebook</div>
                         </div>
 
-                        <div className="mt-auto text-gray-400 text-xs text-center">Don't have Account? <Link href={"/signup"} className="text-black font-medium">Sign up</Link></div>
+                        <div className="mt-auto text-gray-400 text-xs text-center">Already have Account? <Link href={"/login"} className="text-black font-medium">Log in</Link></div>
                     </form>
                 </div>
                 <div className="hidden md:block md:col-span-6">

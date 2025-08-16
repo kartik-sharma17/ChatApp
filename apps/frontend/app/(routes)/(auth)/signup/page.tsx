@@ -1,8 +1,8 @@
-import React from 'react'
+import { SignupComponent } from "@/app/@components"
 
 const Signup = () => {
   return (
-    <div>this is a signup page</div>
+    <SignupComponent />
   )
 }
 
