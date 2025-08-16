@@ -1,6 +1,8 @@
+import { FriendRequest } from "@/app/@components"
+
 const page = () => {
   return (
-    <div>page</div>
+    <FriendRequest/>
   )
 }
 

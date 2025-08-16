@@ -23,17 +23,10 @@ export default function RootLayout({
       </head>
       <body>
         <Navbar />
-        <div className="grid grid-cols-12">
-          <div className="col-span-9">
-            <Providers>
-              {children}
-              <Toaster richColors position="top-right" />
-            </Providers>
-          </div>
-          <div className="col-span-3">
-
-          </div>
-        </div>
+        <Providers>
+          {children}
+          <Toaster richColors position="top-right" />
+        </Providers>
       </body>
     </html>
   );
