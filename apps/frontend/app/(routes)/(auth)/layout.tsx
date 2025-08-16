@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import Providers from "./Providers";
+import { Toaster } from 'sonner'
 
 export const metadata: Metadata = {
   title: "Chat App By Kartik",
@@ -22,6 +23,7 @@ export default function RootLayout({
       <body>
         <Providers>
           {children}
+           <Toaster richColors position="top-right" /> {/* position optional */}
         </Providers>
       </body>
     </html>

@@ -1,54 +1,69 @@
 "use client";
-import { CustomInput } from "@/app/@core"
+import { CustomInput, CustomSkeleton } from "@/app/@core"
 import Link from "next/link"
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faGoogle, faFacebook } from '@fortawesome/free-brands-svg-icons'
 import { useFormik } from 'formik';
 import { initialValues, validate } from "./configFormik";
 import { useLoginMutation } from "@/app/@redux/services";
+import { toast } from 'sonner'
+import { useRouter } from "next/navigation";
+import { useAppDispatch } from "@/app/@redux/hooks/hooks";
+import { setUser } from "@/app/@redux/slice/userData";
 
 export const LoginComponent = () => {
 
-    const [login, { isLoading, isSuccess }] = useLoginMutation();
+    const [login, { isLoading }] = useLoginMutation();
+    const navigate = useRouter()
+    const dispatch = useAppDispatch()
 
     const formik = useFormik({
         initialValues,
         validationSchema: validate,
         onSubmit: async (values) => {
             try {
-                const res = await login(values);
-                console.log("login success", res)
+                const res = await login(values).unwrap();
+                console.log(res)
+                toast.success(res?.message);
+                dispatch(setUser({ userData: res?.data, token: res?.data?.token }))
+                navigate.push('/')
             }
             catch (error) {
-                console.log("some went wrong", error)
+                toast.error(error?.data?.message);
             }
         },
     })
 
     return (
         <div className="w-full h-screen flex justify-center items-center">
-            <div className="grid grid-cols-12 w-full mx-4 sm:w-5/6 md:mx-0 md:w-4/6 h-10/12 rounded-2xl overflow-y-scroll" style={{
+            <div className="grid grid-cols-12 w-full mx-4 sm:w-5/6 md:mx-0 md:w-4/6 h-8/10 rounded-2xl overflow-y-scroll" style={{
                 overflowY: "scroll",
                 scrollbarWidth: "thin",
                 scrollbarColor: "#9ca3af transparent",
             }}>
-                <div className="p-4 md:py-10 lg:p-10 px-5 lg:px-12 col-span-12 md:col-span-6 bg-white text-black flex flex-col">
-                    <form onSubmit={formik.handleSubmit}>
+                <div className="p-4 md:py-10 lg:p-10 px-5 lg:px-12 col-span-12 md:col-span-6 bg-white text-black ">
+                    <form className="flex flex-col h-full" onSubmit={formik.handleSubmit}>
                         <h2 className="text-2xl text-center my-2 lg:mt-10 font-medium">Log In</h2>
+
                         <p className="text-xs text-gray-400 text-center">Welcome back! Please enter ypur details</p>
+
                         <CustomInput formik={formik} name={"email"} mandatory={true} label={"Email"} type="email" placeholder="Email" />
                         <CustomInput formik={formik} name={"password"} mandatory={true} label={"Password"} type="password" placeholder="Password" />
                         <Link href={"#"} className="text-black ms-1 text-xs">Forget Password ?</Link>
-                        <button type="submit" className="mt-4 text-white bg-black px-5 py-1 rounded-sm w-full cursor-pointer">Login</button>
+
+                        {isLoading ? <CustomSkeleton className="w-full h-8 mt-4 bg-black" /> : <button type="submit" className="mt-4 text-white bg-black px-5 py-1 rounded-sm w-full cursor-pointer">Login</button>}
+
                         <div className="flex items-center gap-2 w-full mt-7">
                             <hr className="flex-1 border-gray-400" />
                             <p className="text-gray-400 text-xs">Or Continue With</p>
                             <hr className="flex-1 border-gray-400" />
                         </div>
+
                         <div className="grid grid-cols-12 gap-4 lg:gap-6 mt-7 mb-4">
                             <div className="col-span-12 lg:col-span-6 text-sm flex gap-2 items-center justify-center border-gray-200 rounded-sm border-1 p-2 cursor-pointer"><FontAwesomeIcon icon={faGoogle} className="text-green-400 w-5 h-5" />Google</div>
                             <div className="col-span-12 lg:col-span-6 text-sm flex gap-2 items-center justify-center border-gray-200 rounded-sm border-1 p-2 cursor-pointer"><FontAwesomeIcon icon={faFacebook} className="text-blue-600 w-5 h-5" />Facebook</div>
                         </div>
+
                         <div className="mt-auto text-gray-400 text-xs text-center">Don't have Account? <Link href={"/signup"} className="text-black font-medium">Sign up</Link></div>
                     </form>
                 </div>
