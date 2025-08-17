@@ -10,6 +10,7 @@ import { toast } from 'sonner'
 import { useRouter } from "next/navigation";
 import { useAppDispatch } from "@/app/@redux/hooks/hooks";
 import { setUser } from "@/app/@redux/slice/userData";
+import Cookies from "js-cookie";
 
 export const LoginComponent = () => {
 
@@ -25,6 +26,7 @@ export const LoginComponent = () => {
                 const res = await login(values).unwrap();
                 toast.success(res?.message);
                 dispatch(setUser({ userData: res?.data, token: res?.data?.token }))
+                Cookies.set("token", res?.data?.token, { expires: 7 });
                 navigate.push('/')
             }
             catch (error) {

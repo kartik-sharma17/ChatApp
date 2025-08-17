@@ -3,19 +3,18 @@ import type { NextRequest } from 'next/server'
 
 export function middleware(request: NextRequest) {
     const { pathname } = request.nextUrl
+    const token = request.cookies.get("token")?.value;
 
-    const token = true
+    // console.log(isAuth)
 
-    if (pathname === "/login" || pathname === "/singup") {
-        // console.log("public routes")
-        //   return NextResponse.redirect(new URL('/home', request.url))
+    if (!token) {
+        return NextResponse.redirect(new URL('/login', request.url))
     }
-    else {
-        // console.log("private routes")
-        //   return NextResponse.redirect(new URL('/home', request.url))
-    }
+
+    return NextResponse.next();
+
 }
 
 export const config = {
-    matcher: '/:path*',
+    matcher: ["/", "/profile", "/friend-request", "/add-friend"],
 }
