@@ -2,12 +2,17 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faComments, faUserGroup, faUser, faArrowRightFromBracket } from '@fortawesome/free-solid-svg-icons'
 import Link from "next/link";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { useState } from "react";
+import { useAppDispatch } from "@/app/@redux/hooks/hooks";
+import { clearUser } from "@/app/@redux/slice/userData";
+import Cookies from "js-cookie";
 
 export const Navbar = () => {
     const [isOpen, setIsOpen] = useState(false);
     const pathname = usePathname();
+    const dispatch = useAppDispatch()
+    const route = useRouter()
 
     const activeStyle = {
         color: "#eef1ee",
@@ -34,7 +39,11 @@ export const Navbar = () => {
                     <div className="w-5/10 flex justify-evenly">
                         <Link href="/profile" style={pathname === '/profile' ? activeStyle : {}} className="hidden md:flex hover:text-gray-300 items-center gap-2"><FontAwesomeIcon icon={faUser} /> Profile</Link>
                         <Link href="add-friend" style={pathname === '/add-friend' ? activeStyle : {}} className="hidden md:flex hover:text-gray-300 items-center gap-2"> <FontAwesomeIcon icon={faUserGroup} />Add Friend</Link>
-                        <Link href="#" className="hidden md:flex hover:text-gray-300 items-center gap-2"><FontAwesomeIcon icon={faArrowRightFromBracket} /> Log out</Link>
+                        <button onClick={() => {
+                            dispatch(clearUser());
+                            Cookies.remove("token");
+                            route.push("/login")
+                        }} className="hidden md:flex hover:text-gray-300 items-center gap-2"><FontAwesomeIcon icon={faArrowRightFromBracket} /> Log out</button>
                     </div>
                     {/* Mobile Button */}
                     <div className="md:hidden">

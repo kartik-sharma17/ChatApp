@@ -1,12 +1,33 @@
+import { url } from "inspector";
 import { rootApislice } from "./rootApislice";
 
 export const friendApislice = rootApislice.injectEndpoints({
     endpoints: (builder) => ({
-        getRequest: builder.query({
+        getRequest: builder.query<any, void>({
             query: () => `/request`,
             providesTags: ['Friends']
+        }),
+        getUser: builder.query<any, void>({
+            query: () => `/users`,
+            providesTags: ['Friends']
+        }),
+        requestRespose: builder.mutation({
+            query: (data) => ({
+                url: `/friend-request/respond`,
+                method: "POST",
+                body: data
+            }),
+            invalidatesTags: ['Friends']
+        }),
+        sendRequest: builder.mutation({
+            query: (data) => ({
+                url: `/friend-request`,
+                method: "POST",
+                body: data
+            }),
+            invalidatesTags: ['Friends']
         }),
     }),
 });
 
-export const { useGetRequestQuery } = friendApislice;
+export const { useGetRequestQuery, useRequestResposeMutation,useGetUserQuery,useSendRequestMutation } = friendApislice;

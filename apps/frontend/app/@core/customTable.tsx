@@ -45,8 +45,8 @@ export const CustomDataTable = (props: any) => {
                     ))}
                 </TableHeader>
                 <TableBody>
-                    {table.getRowModel().rows?.length ? (
-                        table.getRowModel().rows.map((row) => (
+                    {table?.getRowModel().rows?.length ? (
+                        table?.getRowModel().rows.map((row) => (
                             <TableRow
                             className="text-center"
                                 key={row.id}
