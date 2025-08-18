@@ -1,4 +1,3 @@
-import { url } from "inspector";
 import { rootApislice } from "./rootApislice";
 
 export const friendApislice = rootApislice.injectEndpoints({
@@ -9,6 +8,10 @@ export const friendApislice = rootApislice.injectEndpoints({
         }),
         getUser: builder.query<any, void>({
             query: () => `/users`,
+            providesTags: ['Friends']
+        }),
+        getFriends: builder.query<any, void>({
+            query: () => `/friends`,
             providesTags: ['Friends']
         }),
         requestRespose: builder.mutation({
@@ -30,4 +33,4 @@ export const friendApislice = rootApislice.injectEndpoints({
     }),
 });
 
-export const { useGetRequestQuery, useRequestResposeMutation,useGetUserQuery,useSendRequestMutation } = friendApislice;
+export const { useGetRequestQuery, useRequestResposeMutation, useGetUserQuery, useSendRequestMutation,useGetFriendsQuery } = friendApislice;

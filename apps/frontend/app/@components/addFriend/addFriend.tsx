@@ -18,7 +18,7 @@ export const SendRequest = () => {
             toast.success(res?.message);
         }
         catch (error) {
-            toast.error(error?.message);
+            toast.error(error?.data?.message);
         }
     }
 

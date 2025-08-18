@@ -27,6 +27,8 @@ export const LoginComponent = () => {
                 toast.success(res?.message);
                 dispatch(setUser({ userData: res?.data, token: res?.data?.token }))
                 Cookies.set("token", res?.data?.token, { expires: 7 });
+                Cookies.set("userId", res?.data?.userId, { expires: 7 });
+                Cookies.set("userName", res?.data?.userName, { expires: 7 });
                 navigate.push('/')
             }
             catch (error) {
