@@ -37,7 +37,6 @@ export const Navbar = () => {
                         <Link href="/" className="text-xl font-bold">ChatApp</Link>
                     </div>
                     <div className="w-5/10 flex justify-evenly">
-                        <Link href="/profile" style={pathname === '/profile' ? activeStyle : {}} className="hidden md:flex hover:text-gray-300 items-center gap-2"><FontAwesomeIcon icon={faUser} /> Profile</Link>
                         <Link href="add-friend" style={pathname === '/add-friend' ? activeStyle : {}} className="hidden md:flex hover:text-gray-300 items-center gap-2"> <FontAwesomeIcon icon={faUserGroup} />Add Friend</Link>
                         <button onClick={() => {
                             dispatch(clearUser());

@@ -2,6 +2,7 @@
 import { Socket } from "@/app/webSocket"
 import { useEffect } from "react"
 import Cookies from "js-cookie"
+import { ChatBoxdailog } from "@/app/@components"
 
 const page = () => {
   const userId = Cookies.get("userId");
@@ -15,7 +16,11 @@ const page = () => {
   }, [])
 
   return (
-    <div>this is a default routes</div>
+    <>
+      <ChatBoxdailog />
+      <div className="p-5">Please Click on Friend from Your Friend List to Initialize Chat</div>
+    </>
+
   )
 }
 
