@@ -80,12 +80,16 @@ export const Navbar = () => {
 
             {/* Mobile Menu */}
             {isOpen && (
-                <div className="px-4 pb-3 space-y-2 bg-[#13191e] h-screen w-8/12 ms-auto absolute right-0">
+                <div className="px-4 pb-3 space-y-2 bg-[#13191e] h-screen w-8/12 ms-auto absolute right-0 z-10">
                     <div>
-                        <Link href="#" className="block hover:text-gray-300">About</Link>
-                        <Link href="#" className="block hover:text-gray-300">Services</Link>
-                        <Link href="#" className="block hover:text-gray-300">Contact</Link>
-                        <Link href="#" className="block hover:text-gray-300">Home</Link>
+                        <Link href="/" style={pathname === '/' ? activeStyle : {}} className="flex my-4 hover:text-gray-300 items-center gap-2"><FontAwesomeIcon icon={faComments} /> Chats</Link>
+                        <Link href="/friend-request" style={pathname === '/friend-request' ? activeStyle : {}} className="flex my-4 hover:text-gray-300 items-center gap-2"><FontAwesomeIcon icon={faUserGroup} /> Friend Requests</Link>
+                        <Link href="add-friend" style={pathname === '/add-friend' ? activeStyle : {}} className="flex my-4 hover:text-gray-300 items-center gap-2"> <FontAwesomeIcon icon={faUserGroup} />Add Friend</Link>
+                        <button onClick={() => {
+                            dispatch(clearUser());
+                            Cookies.remove("token");
+                            route.push("/login")
+                        }} className="flex my-4 hover:text-gray-300 items-center gap-2"><FontAwesomeIcon icon={faArrowRightFromBracket} /> Log out</button>
                     </div>
                 </div>
             )}
